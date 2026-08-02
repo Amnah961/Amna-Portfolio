@@ -1,0 +1,320 @@
+// ==============================
+// LOADER
+// ==============================
+
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
+});
+
+// ==============================
+// AOS
+// ==============================
+
+AOS.init({
+    duration: 1000,
+    once: true,
+    easing: "ease-in-out"
+});
+
+// ==============================
+// TYPING EFFECT
+// ==============================
+
+strings:[
+"Digital Marketing Specialist",
+"Shopify Store Developer",
+"SEO Enthusiast",
+"Social Media Marketer"
+]
+    typeSpeed: 60,
+    backSpeed: 35,
+    backDelay: 1800,
+    loop: true
+});
+
+// ==============================
+// MOBILE MENU
+// ==============================
+
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.querySelector(".nav-links");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+
+    menuBtn.innerHTML = navLinks.classList.contains("active")
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+});
+
+// Close menu after click
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        navLinks.classList.remove("active");
+
+        menuBtn.innerHTML =
+            '<i class="fa-solid fa-bars"></i>';
+
+    });
+
+});
+
+// ==============================
+// STICKY NAVBAR
+// ==============================
+
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 60) {
+
+        header.classList.add("sticky");
+
+    } else {
+
+        header.classList.remove("sticky");
+
+    }
+
+});
+
+// ==============================
+// SCROLL PROGRESS BAR
+// ==============================
+
+const progressBar =
+document.getElementById("progress-bar");
+
+window.addEventListener("scroll", () => {
+
+    let scrollTop =
+    document.documentElement.scrollTop;
+
+    let scrollHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+
+    let progress =
+    (scrollTop / scrollHeight) * 100;
+
+    progressBar.style.width =
+    progress + "%";
+
+});
+
+// ==============================
+// BACK TO TOP
+// ==============================
+
+const topBtn =
+document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 500) {
+
+        topBtn.style.display = "flex";
+
+        topBtn.style.alignItems = "center";
+        topBtn.style.justifyContent = "center";
+
+    } else {
+
+        topBtn.style.display = "none";
+
+    }
+
+});
+
+topBtn.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+});
+
+// ==============================
+// ACTIVE NAV LINK
+// ==============================
+
+const sections =
+document.querySelectorAll("section");
+
+const navItems =
+document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop =
+        section.offsetTop - 150;
+
+        const sectionHeight =
+        section.offsetHeight;
+
+        if (window.scrollY >= sectionTop) {
+
+            current = section.getAttribute("id");
+
+        }
+
+    });
+
+    navItems.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+});
+
+// ==============================
+// SMOOTH FADE FOR CARDS
+// ==============================
+
+const cards =
+document.querySelectorAll(
+".skill-card,.about-card,.timeline-box,.project-card,.contact-card"
+);
+
+const observer =
+new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+
+            entry.target.style.transform =
+            "translateY(0px)";
+
+        }
+
+    });
+
+}, {
+
+    threshold: .15
+
+});
+
+cards.forEach(card => {
+
+    card.style.opacity = "0";
+
+    card.style.transform =
+    "translateY(40px)";
+
+    card.style.transition =
+    ".8s ease";
+
+    observer.observe(card);
+
+});
+
+// ==============================
+// BUTTON RIPPLE EFFECT
+// ==============================
+
+document.querySelectorAll(".btn,.btn-outline")
+.forEach(button => {
+
+button.addEventListener("mouseenter", () => {
+
+button.style.transform =
+"translateY(-4px)";
+
+});
+
+button.addEventListener("mouseleave", () => {
+
+button.style.transform =
+"translateY(0)";
+
+});
+
+});
+
+// ==============================
+// PROJECT IMAGE ZOOM
+// ==============================
+
+const projectImage =
+document.querySelector(".project-image img");
+
+if(projectImage){
+
+projectImage.addEventListener("click",()=>{
+
+window.open(projectImage.src,"_blank");
+
+});
+
+}
+
+// ==============================
+// PARALLAX HERO
+// ==============================
+
+window.addEventListener("scroll",()=>{
+
+const hero =
+document.querySelector(".hero");
+
+let y =
+window.scrollY * .25;
+
+hero.style.backgroundPosition =
+`center ${y}px`;
+
+});
+
+// ==============================
+// COPYRIGHT YEAR
+// ==============================
+
+const footer =
+document.querySelector("footer p");
+
+if(footer){
+
+footer.innerHTML =
+`Digital Marketing Portfolio © ${new Date().getFullYear()}`;
+
+}
+
+console.clear();
+
+console.log(
+"%cWelcome to my portfolio!",
+"color:#10B981;font-size:24px;font-weight:bold;"
+);
+
+console.log(
+"%cThanks for taking the time to explore my work.",
+"color:#374151;font-size:15px;"
+);
+
+console.log(
+"%cHave a great day! 😊",
+"color:#6B7280;font-size:14px;"
+);
